@@ -14,7 +14,7 @@ export default function UserLayout({ children }) {
   return (
     <>
         <Navbar user={user} />
-        <Suspense><div className="w-10/12 mx-auto mt-[300px] sm:mt-[180px] md:mt-[200px] min-h-screen">{children}</div></Suspense>
+        <Suspense><div className="w-10/12 mx-auto mt-26 md:mt-32 min-h-screen">{children}</div></Suspense>
         <MoviesModals/>
         <Toaster />
         <Footer />

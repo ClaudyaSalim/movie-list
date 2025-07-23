@@ -10,6 +10,7 @@ export default function CollectionPage() {
 
   const redirect = () => {
     if(role!=="user" && !isLoading){
+      console.log(role);
       router.push("/");
     }
   }

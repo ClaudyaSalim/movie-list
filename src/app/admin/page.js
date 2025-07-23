@@ -8,7 +8,7 @@ import { MoviesTable } from "./_components/movies-table";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
-import { LogoutButton } from "./_components/logout-button";
+import { LogoutButton } from "../../components/ui/logout-button";
 import useAuth from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 

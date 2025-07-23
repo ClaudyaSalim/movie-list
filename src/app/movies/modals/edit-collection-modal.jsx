@@ -18,21 +18,23 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
 import getFirebaseConfig from "@/firebase/config";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { toast } from "sonner";
+import useColStore from "@/stores/useColStore";
 
-export default function EditCollectionModal({col}) {
+export default function EditCollectionModal() {
   const { user, isLoading } = useAuth();
   const { closeModal } = useModalStore();
   const { db } = getFirebaseConfig();
+  const colId = useColStore((state) => state.getColId());
 
-  const [isLoadingCollection, setIsLoadingCollection] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [collectionName, setCollectionName] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async () => {
     setError("");
+    setIsSubmitting(true);
 
     if (!collectionName || collectionName.trim() === "") {
       setError("Collection name is required");
@@ -48,11 +50,28 @@ export default function EditCollectionModal({col}) {
       return;
     }
 
-    try {
-      
+    try {    
+      const q = query(
+        collection(db, 'users', user.uid, 'collections'),
+        where('name', '==', collectionName)
+      )
+      const snapshot = await getDocs(q)
+      const isUsed = snapshot.docs.some((doc) => doc.id !== colId)
 
-      toast.success("Collection created successfully");
+      if (isUsed) {
+        setError('Collection existed with the same name');
+        return
+      }
+
+      const ref = doc(db, 'users', user.uid, 'collections', colId)
+      await updateDoc(ref, {
+        name: collectionName,
+        updatedAt: new Date()
+      });
+
+      toast.success("Collection name edited successfully");
       setCollectionName("");
+      closeModal();
     } catch (error) {
       console.error(error);
     } finally {
@@ -64,15 +83,15 @@ export default function EditCollectionModal({col}) {
     <Dialog open onOpenChange={closeModal}>
       <DialogContent showCloseButton={false}>
         <DialogHeader>
-          <DialogTitle>Create Collection</DialogTitle>
+          <DialogTitle>Edit Collection</DialogTitle>
           <DialogDescription>
-            Create a new collection to add movies to your collection
+            Edit your collection name
           </DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col gap-4 mt-4">
           <div className="flex flex-col gap-3">
-            <Label htmlFor="collection-name">Collection Name:</Label>
+            <Label htmlFor="collection-name">New Collection Name:</Label>
             <Input
               disabled={isSubmitting || isLoading}
               id="collection-name"
@@ -95,7 +114,7 @@ export default function EditCollectionModal({col}) {
             disabled={isSubmitting || isLoading}
             onClick={handleSubmit}
           >
-            {isSubmitting ? "Creating..." : "Create Collection"}
+            {isSubmitting ? "Editing..." : "Edit Collection"}
           </Button>
         </DialogFooter>
       </DialogContent>

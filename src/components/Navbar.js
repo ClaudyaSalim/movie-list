@@ -7,6 +7,7 @@ import getFirebaseConfig from "@/firebase/config";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { LogoutButton } from "@/components/ui/logout-button";
 
 
 const Navbar = ({user}) => {
@@ -15,16 +16,16 @@ const Navbar = ({user}) => {
     const {auth} = getFirebaseConfig();
     const router = useRouter();
 
-    const handleLogout = async () => {
-        try {
-            await signOut(auth);
-            toast.success("You have been logged out.");
-            router.push("/login");
-        } catch (error) {
-            console.error("Failed to log out:", error);
-            toast.error("Failed to log out. Please try again.");
-        }
-    }
+    // const handleLogout = async () => {
+    //     try {
+    //         await signOut(auth);
+    //         toast.success("You have been logged out.");
+    //         router.push("/login");
+    //     } catch (error) {
+    //         console.error("Failed to log out:", error);
+    //         toast.error("Failed to log out. Please try again.");
+    //     }
+    // }
 
     return(
         <nav className="w-full fixed top-0 left-0 z-40">
@@ -53,7 +54,8 @@ const Navbar = ({user}) => {
                             <div className="bg-green-500 text-white text-center font-bold py-2 px-4 rounded-lg hover:bg-green-600"><Link href="/login">Login</Link></div>:
                             <>
                                 <p className="text-white text-center text-sm md:text-md font-regular">{user.username}</p>
-                                <Button className="bg-green-500 text-white text-center font-bold py-2 px-4 rounded-lg hover:bg-green-600" onClick={handleLogout}>Logout</Button>
+                                {/* <Button className="bg-green-500 text-white text-center font-bold py-2 px-4 rounded-lg hover:bg-green-600" onClick={handleLogout}>Logout</Button> */}
+                                <LogoutButton />
                             </> 
                         }
                         
@@ -67,7 +69,8 @@ const Navbar = ({user}) => {
                         <div className="bg-green-500 text-white text-center font-bold py-2 px-4 rounded-lg hover:bg-green-600"><Link href="/login">Login</Link></div>:
                         <>
                             <p className="text-white text-center text-sm md:text-md font-regular mt-3">{user.username}</p>
-                            <Button className="bg-green-500 text-white text-center font-bold py-2 px-4 rounded-lg hover:bg-green-600" onClick={handleLogout}>Logout</Button>
+                            <LogoutButton />
+                            {/* <Button className="bg-green-500 text-white text-center font-bold py-2 px-4 rounded-lg hover:bg-green-600" onClick={handleLogout}>Logout</Button> */}
                         </> 
                     }
                 </div>

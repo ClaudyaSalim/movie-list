@@ -10,7 +10,7 @@ export default function Home() {
   const {user, role} = useAuth();
 
   useEffect(()=> {
-    if(role=="admin"){
+    if(role==="admin"){
       router.push("/admin");
     }
     else {

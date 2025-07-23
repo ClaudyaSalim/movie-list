@@ -14,6 +14,8 @@ export default function useAuth() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currUser) => {
 
+      setIsLoading(true);
+
       if (currUser) {
         const userCollection = collection(db, "users");
         const userDoc = await getDoc(doc(userCollection, currUser.uid));
