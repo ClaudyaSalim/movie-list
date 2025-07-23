@@ -78,7 +78,7 @@ export default function LoginPage() {
             {/* ini icon */}
             <Clapperboard className="size-4" /> 
           </div>
-          Movie Collection
+          MyMovieList
         </a>
         <div className={cn("flex flex-col gap-6")}>
           <Card>

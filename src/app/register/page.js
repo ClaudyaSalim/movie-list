@@ -104,7 +104,7 @@ export default function RegisterPage() {
             className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
             <Clapperboard className="size-4" />
           </div>
-          Movie Collection
+          MyMovieList
         </a>
         <div className={cn("flex flex-col gap-6")}>
           <Card>

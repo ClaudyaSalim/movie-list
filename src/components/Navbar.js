@@ -8,6 +8,7 @@ import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { LogoutButton } from "@/components/ui/logout-button";
+import { Clapperboard } from "lucide-react";
 
 
 const Navbar = ({user}) => {
@@ -43,7 +44,11 @@ const Navbar = ({user}) => {
             {/* h3: w-80 md:w-fit */}
             <div className={`w-full bg-blue-900 p-4 md:p-6 ${(menuOpen)? "rounded-b-lg" : ""}`}>
                 <div className="w-10/12 mx-auto flex justify-between items-center">
-                    <h3 className= "text-xl md:text-4xl text-white font-bold">MyMovieList</h3>
+                    <h3 className= "text-xl md:text-4xl text-white font-bold flex flex-row items-center gap-3">
+                        <div className="bg-primary text-primary-foreground flex size-10 items-center justify-center rounded-md">
+                            <Clapperboard className="size-8"/>
+                        </div> 
+                        MyMovieList</h3>
                     <button onClick={() => setMenuOpen(!menuOpen)} className="sm:hidden">
                         <Image src='/icons8-hamburger-button-100.png' alt="menu-bar" width={50} height={50}  />
                     </button>

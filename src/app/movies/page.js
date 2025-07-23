@@ -10,6 +10,7 @@ import useAuth from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import NotFound from "../not-found";
 import useSelectedMoviesStore from "./[id]/_components/useSelectedMoviesStore";
+import { Button } from "@/components/ui/button";
 
 const ITEMS_PER_PAGE = 8;
 
@@ -157,14 +158,14 @@ export default function MovieList() {
                   <div className="absolute inset-0 bg-black/40 opacity-100 lg:opacity-0 group-hover:opacity-100 transition duration-300"></div>
                   <div className="absolute inset-0 flex flex-col gap-y-4 items-center justify-center opacity-100 lg:opacity-0 group-hover:opacity-100 transition duration-300 z-10">
                     <Link href={`/movies/${movie.id}`} className="p-2 font-medium rounded-lg bg-white hover:bg-[#B8BBB8]">View Detail</Link>
-                    <button
+                    <Button
                       onClick={() => toggleMovie(movie.id)}
                       className={`p-2 rounded-lg text-white transition ${
                         isSelected ? "bg-gray-500 hover:bg-gray-600" : "bg-green-500 hover:bg-green-600"
                       }`}
                     >
                       {isSelected ? "Added" : "Add to Collection"}
-                    </button>
+                    </Button>
 
                   </div>
                   <h4 className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-center font-medium line-clamp-2 text-lg overflow-hidden transition duration-300 opacity-100 lg:opacity-0 group-hover:opacity-100 px-4 z-10">
@@ -179,37 +180,41 @@ export default function MovieList() {
         {/* Pagination Controls */}
         {!loading && totalPages > 1 && (
           <div className="flex justify-center items-center gap-2 mt-12 pb-14">
-            <button
+            <Button
+              variant="outline"
               onClick={() => setCurrentPage(1)}
               disabled={currentPage === 1}
-              className="px-3 py-1 bg-gray-200 font-medium rounded disabled:opacity-50 hover:bg-gray-400"
+              className="px-3 py-1 font-medium rounded disabled:opacity-50"
             >
               &lt;&lt;
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="outline"
               onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
               disabled={currentPage === 1}
-              className="px-3 py-1 bg-gray-200 font-medium rounded disabled:opacity-50 hover:bg-gray-400"
+              className="px-3 py-1 font-medium rounded disabled:opacity-50"
             >
               &lt;
-            </button>
+            </Button>
 
             <span className="px-4">Page {currentPage} of {totalPages}</span>
 
-            <button
+            <Button
+              variant="outline"
               onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
               disabled={currentPage === totalPages}
-              className="px-3 py-1 bg-gray-200 font-medium rounded disabled:opacity-50 hover:bg-gray-400"
+              className="px-3 py-1 font-medium rounded disabled:opacity-50"
             >
               &gt;
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="outline"
               onClick={() => setCurrentPage(totalPages)}
               disabled={currentPage === totalPages}
-              className="px-3 py-1 bg-gray-200 font-medium rounded disabled:opacity-50 hover:bg-gray-400"
+              className="px-3 py-1 font-medium rounded disabled:opacity-50"
             >
               &gt;&gt;
-            </button>
+            </Button>
           </div>
         )}
       </div>

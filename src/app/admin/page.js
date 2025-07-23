@@ -6,7 +6,7 @@ import getFirebaseConfig from "@/firebase/config";
 import { AddMovieForm } from "./_components/add-movie-form";
 import { MoviesTable } from "./_components/movies-table";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Clapperboard, Search } from "lucide-react";
 
 import { LogoutButton } from "../../components/ui/logout-button";
 import useAuth from "@/hooks/useAuth";
@@ -77,7 +77,11 @@ export default function AdminPage() {
   return (
     <main className="container mx-auto py-10">
       <div className="flex flex-wrap gap-y-4 justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold tracking-tight">Manage Movies</h1>
+        <h1 className="text-4xl font-bold tracking-tight flex flex-row gap-3">Manage Movies 
+          <div className="bg-primary text-primary-foreground flex size-10 items-center justify-center rounded-md">
+            <Clapperboard className="size-8"/>
+          </div> 
+        </h1>
         <div className="flex-shrink-0 flex items-center gap-2">
           <AddMovieForm />
           <LogoutButton />
